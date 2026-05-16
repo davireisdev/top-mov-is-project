@@ -4,9 +4,9 @@ import { Star, Quote, Award } from "lucide-react";
 interface Testimonial {
   name: string;
   role: string;
-  text: string;
-  rating: number;
   highlight: string;
+  body: string;
+  rating: number;
   initials: string;
 }
 
@@ -14,24 +14,24 @@ const testimonials: Testimonial[] = [
   {
     name: "Maria Helena S.",
     role: "Cozinha Planejada",
-    text: "Simplesmente perfeito! A equipe da TOP Móveis entendeu exatamente o que eu queria. Minha cozinha ficou muito além das expectativas. Recomendo de olhos fechados!",
     highlight: "Simplesmente perfeito!",
+    body: "A equipe da TOP Móveis entendeu exatamente o que eu queria. Minha cozinha ficou muito além das expectativas. Recomendo de olhos fechados!",
     rating: 5,
     initials: "MH",
   },
   {
     name: "Carlos Eduardo M.",
     role: "Home Office Completo",
-    text: "Profissionalismo do início ao fim. O projeto 3D me deu total segurança antes de aprovar. O resultado final ficou impecável e funcional. Excelente!",
     highlight: "Profissionalismo do início ao fim.",
+    body: "O projeto 3D me deu total segurança antes de aprovar. O resultado final ficou impecável e funcional. Excelente!",
     rating: 5,
     initials: "CE",
   },
   {
     name: "Ana Paula R.",
     role: "Apartamento Completo",
-    text: "Fizemos todos os móveis do apartamento com a TOP Móveis e não nos arrependemos. Qualidade excepcional, pontualidade na entrega e um atendimento extraordinário.",
-    highlight: "Qualidade excepcional e atendimento extraordinário.",
+    highlight: "Qualidade excepcional.",
+    body: "Fizemos todos os móveis do apartamento com a TOP Móveis e não nos arrependemos. Pontualidade na entrega e um atendimento extraordinário.",
     rating: 5,
     initials: "AP",
   },
