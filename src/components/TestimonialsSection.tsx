@@ -75,7 +75,7 @@ const TestimonialsSection = () => {
                     "{t.highlight}"
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    {t.text.replace(t.highlight, "").trim().replace(/^"|"$/g, "")}
+                    {t.body}
                   </p>
                 </div>
 
