@@ -3,7 +3,7 @@ import { ArrowRight, Award, Clock, Star } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
+    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden bg-background">
       {/* Subtle textured background matching site palette */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/40 to-accent/10" />
       <div
