@@ -1,35 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Clock, Star } from "lucide-react";
-import { useRef, type MouseEvent } from "react";
 
 const HeroSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
-  };
-
   return (
     <section
       id="inicio"
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      className="group relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
     >
       {/* Warm brownish-orange base */}
       <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground/85 to-primary/80" />
-      {/* Mouse-follow soft light */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background:
-            "radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), hsl(var(--accent) / 0.25), transparent 60%)",
-        }}
-      />
       <div
         className="absolute inset-0 opacity-20"
         style={{
