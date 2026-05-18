@@ -1,7 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Armchair, Home, UtensilsCrossed, Bath, Building2, Paintbrush } from "lucide-react";
 
-const services = [
+interface Service {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  backgroundImage?: string;
+}
+
+const services: Service[] = [
   {
     icon: Home,
     title: "Salas de Estar",
