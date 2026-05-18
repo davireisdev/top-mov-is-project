@@ -21,6 +21,7 @@ const services = [
     icon: Bath,
     title: "Banheiros",
     description: "Gabinetes, nichos e armários que unem elegância e praticidade para seu banheiro.",
+    backgroundImage: "https://images.unsplash.com/photo-1600488999585-e4364713b90a?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFuaGVpcm9zfGVufDB8fDB8fHww",
   },
   {
     icon: Building2,
