@@ -1,5 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote, Award } from "lucide-react";
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -45,6 +47,9 @@ const testimonials: Testimonial[] = [
 ];
 
 const TestimonialsSection = () => {
+  const autoplay = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
   return (
     <section id="depoimentos" className="py-28 bg-muted/30">
       <div className="container mx-auto px-6">
@@ -68,6 +73,7 @@ const TestimonialsSection = () => {
 
         <Carousel
           opts={{ align: "start", loop: true }}
+          plugins={[autoplay.current]}
           className="w-full max-w-6xl mx-auto"
         >
           <CarouselContent className="-ml-4">
