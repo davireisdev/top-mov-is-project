@@ -18,8 +18,8 @@ const AboutSection = () => {
           <div className="relative">
             <div className="aspect-[4/5] rounded-3xl overflow-hidden relative shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80"
-                alt="Marcenaria tradicional - 30+ anos de tradição"
+                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
+                alt="Móvel planejado sob medida - 30+ anos de tradição"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />
