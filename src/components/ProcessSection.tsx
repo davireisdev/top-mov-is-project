@@ -43,13 +43,13 @@ const ProcessSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((item, i) => (
-            <div key={item.step} className="relative text-center group">
+            <div key={item.step} className="relative text-center group cursor-pointer">
               {i < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] h-px bg-primary-foreground/10" />
               )}
-              <div className="w-20 h-20 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors relative">
-                <item.icon className="h-8 w-8 text-accent" />
-                <span className="absolute -top-2 -right-2 w-7 h-7 bg-accent rounded-full flex items-center justify-center text-xs font-bold text-accent-foreground">
+              <div className="w-20 h-20 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_25px_hsl(var(--accent)/0.5)] relative">
+                <item.icon className="h-8 w-8 text-accent transition-transform duration-300 group-hover:rotate-6" />
+                <span className="absolute -top-2 -right-2 w-7 h-7 bg-accent rounded-full flex items-center justify-center text-xs font-bold text-accent-foreground transition-transform duration-300 group-hover:scale-110">
                   {item.step}
                 </span>
               </div>
