@@ -1,4 +1,4 @@
-import { Star, Quote, Instagram, MessageCircle } from "lucide-react";
+import { Star, Quote, MessageCircle } from "lucide-react";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -134,7 +134,11 @@ const Footer = () => {
               aria-label="Instagram"
               className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-accent hover:border-accent/60 transition-all duration-300 hover:scale-110"
             >
-              <Instagram className="h-4 w-4" strokeWidth={1.5} />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
             </a>
             <a
               href="#"
