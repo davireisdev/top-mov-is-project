@@ -4,6 +4,18 @@ import { chatStore, useChatStore, type ChatMsg } from "@/lib/chatStore";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
+// Defensive: strip basic markdown so chat always renders as clean plain text.
+const stripMarkdown = (s: string) =>
+  s
+    .replace(/`{1,3}([^`]*)`{1,3}/g, "$1")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/__(.*?)__/g, "$1")
+    .replace(/_(.*?)_/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*]\s+/gm, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
 const FloatingChat = () => {
   const { open, loading, messages } = useChatStore();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -140,7 +152,8 @@ const FloatingChat = () => {
                     : "bg-white/5 text-white/90 border border-white/5"
                 }`}
               >
-                {m.content || (loading && i === messages.length - 1 ? "…" : "")}
+                {m.role === "assistant" ? stripMarkdown(m.content) : m.content}
+                {!m.content && loading && i === messages.length - 1 ? "…" : ""}
               </div>
             </div>
           ))}
