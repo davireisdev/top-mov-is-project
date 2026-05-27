@@ -46,15 +46,14 @@ const Footer = () => {
       id="depoimentos"
       className="relative bg-zinc-900 text-white overflow-hidden"
     >
-      {/* Subtle luxury texture */}
+      {/* Subtle dark wood radial wash — extremely faint, no grid */}
       <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-rule='evenodd'%3E%3Cpath d='M0 0h1v80H0zM80 0v1H0V0z'/%3E%3C/g%3E%3C/svg%3E")`,
+          background:
+            "radial-gradient(ellipse at top, hsl(0 0% 100% / 0.04), transparent 60%)",
         }}
       />
-      {/* Soft top vignette to feel like a closing curtain */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
 
       <div className="relative container mx-auto px-6 pt-24 pb-10">
         {/* TESTIMONIALS */}
