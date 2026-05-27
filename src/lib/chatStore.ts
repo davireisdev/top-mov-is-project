@@ -16,7 +16,7 @@ let state: State = {
     {
       role: "assistant",
       content:
-        "Olá! Sou o Consultor Virtual da TOP Móveis. Posso te ajudar com MDF, cores, ferragens e projetos 3D. Em que posso ajudar?",
+        "Olá! Sou o Consultor Virtual da TOP Móveis. Estou aqui para te ajudar com MDF, cores, ferragens e projetos 3D. O que você está pensando em planejar hoje? (Ex: Cozinha, Quarto, Banheiro...)",
     },
   ],
   pendingSend: null,
