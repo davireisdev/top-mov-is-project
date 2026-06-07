@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, Sparkles, ImagePlus, ArrowRight, MessageCircle } from "lucide-react";
-import { chatStore } from "@/lib/chatStore";
+
+const WHATSAPP_NUMBER = "5511999999999"; // Substitua pelo número real da marcenaria
 
 const ContactSection = () => {
   const [draft, setDraft] = useState("");
@@ -10,11 +11,19 @@ const ContactSection = () => {
   const startConsult = () => {
     const text = draft.trim();
     if (!text) {
-      chatStore.openChat();
+      alert("Por favor, descreva o ambiente dos seus sonhos antes de iniciar a consultoria.");
       return;
     }
-    chatStore.openWithMessage(text);
+    const message = `Olá! Gostaria de iniciar uma consultoria digital. Aqui estão os detalhes do meu projeto ideal: ${text}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
     setDraft("");
+  };
+
+  const openDirectWhatsApp = () => {
+    const message = "Olá! Gostaria de tirar algumas dúvidas sobre projetos de móveis sob medida.";
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
