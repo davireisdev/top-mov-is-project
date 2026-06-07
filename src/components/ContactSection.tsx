@@ -90,7 +90,11 @@ const ContactSection = () => {
               <div className="mt-12 pt-8 border-t border-border/40">
                 <a
                   href="#"
-                  className="group flex items-center justify-between py-2 hover:opacity-80 transition-opacity"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openDirectWhatsApp();
+                  }}
+                  className="group flex items-center justify-between py-2 hover:opacity-80 transition-opacity cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
                     <MessageCircle className="h-5 w-5 text-accent" strokeWidth={1.5} />
