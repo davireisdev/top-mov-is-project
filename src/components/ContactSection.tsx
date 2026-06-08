@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, Sparkles, ImagePlus, ArrowRight, MessageCircle } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { chatStore, useChatStore } from "@/lib/chatStore";
 
-const WHATSAPP_NUMBER = "5511999999999"; // Substitua pelo número real da marcenaria
+const WHATSAPP_NUMBER = "5512991980766";
 
 const ContactSection = () => {
-  const [draft, setDraft] = useState("");
+  const { consultDraft: draft } = useChatStore();
+  const setDraft = (text: string) => chatStore.setConsultDraft(text);
+  const [modalOpen, setModalOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const startConsult = () => {
     const text = draft.trim();
@@ -14,16 +25,28 @@ const ContactSection = () => {
       alert("Por favor, descreva o ambiente dos seus sonhos antes de iniciar a consultoria.");
       return;
     }
-    const message = `Olá! Gostaria de iniciar uma consultoria digital. Aqui estão os detalhes do meu projeto ideal: ${text}`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    setDraft("");
+    setModalOpen(true);
   };
 
   const openDirectWhatsApp = () => {
     const message = "Olá! Gostaria de tirar algumas dúvidas sobre projetos de móveis sob medida.";
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const consultantWhatsAppUrl = () => {
+    const text = draft.trim();
+    const message = text
+      ? `Olá! Gostaria de iniciar uma consultoria digital. Aqui estão os detalhes do meu projeto ideal: ${text}`
+      : "Olá! Gostaria de iniciar uma consultoria digital sobre móveis sob medida.";
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setDraft(`${draft ? draft + "\n\n" : ""}Anexei uma imagem de inspiração: ${file.name}`);
+    }
   };
 
   return (
@@ -67,8 +90,16 @@ const ContactSection = () => {
                 />
 
                 <div className="flex items-center justify-between mt-6">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
                   <button
                     type="button"
+                    onClick={() => fileInputRef.current?.click()}
                     className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors"
                   >
                     <ImagePlus className="h-4 w-4" />
@@ -132,6 +163,32 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Coming Soon Modal */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="sm:max-w-md bg-background rounded-2xl border border-border/60">
+          <DialogHeader>
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
+              <Sparkles className="h-6 w-6 text-accent" />
+            </div>
+            <DialogTitle className="font-display text-2xl text-center font-normal">
+              Consultoria Digital com IA <span className="text-accent">(Em Breve)</span>
+            </DialogTitle>
+            <DialogDescription className="text-center text-base font-light leading-relaxed pt-2">
+              Estamos calibrando nossa inteligência artificial para criar projetos 3D realistas em segundos! Essa função estará disponível muito em breve.
+            </DialogDescription>
+          </DialogHeader>
+          <a
+            href={consultantWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center justify-center gap-2 w-full bg-foreground text-background hover:bg-foreground/90 rounded-full h-12 px-6 font-light tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_hsl(var(--accent)/0.4)]"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Falar com Consultor no WhatsApp
+          </a>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

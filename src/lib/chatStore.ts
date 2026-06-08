@@ -7,6 +7,7 @@ type State = {
   loading: boolean;
   messages: ChatMsg[];
   pendingSend: string | null;
+  consultDraft: string;
 };
 
 let state: State = {
@@ -20,6 +21,7 @@ let state: State = {
     },
   ],
   pendingSend: null,
+  consultDraft: "",
 };
 
 const listeners = new Set<() => void>();
@@ -66,6 +68,10 @@ export const chatStore = {
       emit();
     }
     return p;
+  },
+  setConsultDraft: (text: string) => {
+    state = { ...state, consultDraft: text };
+    emit();
   },
 };
 

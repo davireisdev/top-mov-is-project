@@ -129,7 +129,9 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3 order-2 sm:order-1">
             <a
-              href="#"
+              href="https://www.instagram.com/topmoveis.marcenaria?igsh=MXU4cTdnNDVpczFnZA=="
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-accent hover:border-accent/60 transition-all duration-300 hover:scale-110"
             >
