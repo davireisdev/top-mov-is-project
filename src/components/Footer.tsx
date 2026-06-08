@@ -142,7 +142,9 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://wa.me/5512991980766"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="WhatsApp"
               className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-accent hover:border-accent/60 transition-all duration-300 hover:scale-110"
             >
