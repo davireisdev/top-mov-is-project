@@ -36,7 +36,7 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
             <Button asChild size="lg" className="group bg-accent text-accent-foreground hover:bg-accent text-base px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--accent)/0.6)]">
-              <a href="#contato">
+              <a href="https://w.app/tq16tl" target="_blank" rel="noopener noreferrer">
                 Solicitar Orçamento
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
