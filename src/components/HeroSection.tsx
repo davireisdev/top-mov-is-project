@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Clock, Star } from "lucide-react";
+import heroImage from "@/assets/hero-marcenaria.jpg";
 
 const HeroSection = () => {
   return (
@@ -7,8 +8,16 @@ const HeroSection = () => {
       id="inicio"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Warm brownish-orange base */}
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground/85 to-primary/80" />
+      {/* Premium photo background */}
+      <img
+        src={heroImage}
+        alt="Cozinha planejada moderna em marcenaria sob medida da TOP Móveis"
+        className="absolute inset-0 w-full h-full object-cover"
+        width={1920}
+        height={1080}
+      />
+      {/* Elegant dark overlay for legibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground/80 to-primary/70" />
       <div
         className="absolute inset-0 opacity-20"
         style={{
