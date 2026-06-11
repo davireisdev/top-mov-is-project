@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { chatStore, useChatStore } from "@/lib/chatStore";
 
-const WHATSAPP_NUMBER = "5512991980766";
+const WHATSAPP_URL = "https://w.app/tq16tl";
 
 const ContactSection = () => {
   const { consultDraft: draft } = useChatStore();
@@ -29,18 +29,10 @@ const ContactSection = () => {
   };
 
   const openDirectWhatsApp = () => {
-    const message = "Olá! Gostaria de tirar algumas dúvidas sobre projetos de móveis sob medida.";
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
   };
 
-  const consultantWhatsAppUrl = () => {
-    const text = draft.trim();
-    const message = text
-      ? `Olá! Gostaria de iniciar uma consultoria digital. Aqui estão os detalhes do meu projeto ideal: ${text}`
-      : "Olá! Gostaria de iniciar uma consultoria digital sobre móveis sob medida.";
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  };
+  const consultantWhatsAppUrl = () => WHATSAPP_URL;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
