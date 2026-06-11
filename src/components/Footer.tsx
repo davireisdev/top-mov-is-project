@@ -129,7 +129,7 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3 order-2 sm:order-1">
             <a
-              href="https://www.instagram.com/topmoveis.marcenaria?igsh=MXU4cTdnNDVpczFnZA=="
+              href="https://www.instagram.com/topmoveis.marcenaria/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -142,7 +142,7 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="https://wa.me/5512991980766"
+              href="https://w.app/tq16tl"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"

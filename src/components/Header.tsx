@@ -96,7 +96,7 @@ const Header = () => {
               (11) 99999-9999
             </a>
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-6">
-              <a href="#contato">Orçamento Grátis</a>
+              <a href="https://w.app/tq16tl" target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
             </Button>
           </div>
 
@@ -136,8 +136,8 @@ const Header = () => {
                   </a>
                 );
               })}
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full mt-2 w-full">
-                Orçamento Grátis
+              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full mt-2 w-full">
+                <a href="https://w.app/tq16tl" target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
               </Button>
             </nav>
           </div>
