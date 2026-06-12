@@ -26,7 +26,7 @@ const HeroSection = () => {
       />
 
       <div className="relative z-10 container mx-auto px-6 py-20">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl animate-fade-in-up">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 mb-8">
             <Award className="h-4 w-4 text-accent" />
