@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Reveal from "@/components/Reveal";
 import portfolioSala from "@/assets/portfolio-sala.jpeg";
 import portfolioDormitorio from "@/assets/portfolio-dormitorio.jpeg";
 import portfolioCozinha1 from "@/assets/portfolio-cozinha1.jpeg";
@@ -22,17 +23,17 @@ const PortfolioSection = () => {
     : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="portfolio" className="py-24 bg-secondary/30">
+    <section id="portfolio" className="py-20 md:py-24 bg-secondary/30">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <Reveal className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-accent font-medium text-sm tracking-widest uppercase">Portfólio</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
             Projetos que inspiram
           </h2>
           <p className="text-muted-foreground text-lg">
             Conheça alguns dos milhares de projetos que realizamos ao longo de nossa trajetória.
           </p>
-        </div>
+        </Reveal>
 
         {/* Filters */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -51,14 +52,16 @@ const PortfolioSection = () => {
 
         {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <div
+          {filteredProjects.map((project, i) => (
+            <Reveal
               key={project.id}
+              delay={i * 80}
               className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer"
             >
               <img
                 src={project.image}
                 alt={project.title}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/40 transition-colors" />
@@ -66,7 +69,7 @@ const PortfolioSection = () => {
                 <span className="text-xs text-accent font-medium tracking-wider uppercase">{project.category}</span>
                 <h3 className="font-display text-xl font-semibold text-primary-foreground mt-1">{project.title}</h3>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
