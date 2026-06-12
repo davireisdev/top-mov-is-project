@@ -1,4 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const highlights = [
   "Mais de 30 anos de tradição e qualidade",
@@ -11,11 +12,11 @@ const highlights = [
 
 const AboutSection = () => {
   return (
-    <section id="sobre" className="py-24 bg-zinc-50">
+    <section id="sobre" className="py-20 md:py-24 bg-zinc-50">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}
-          <div className="relative">
+          <Reveal className="relative">
             <div className="aspect-[4/5] rounded-3xl overflow-hidden relative shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
@@ -36,12 +37,12 @@ const AboutSection = () => {
               <p className="font-display text-2xl font-bold text-foreground">5.000+</p>
               <p className="text-muted-foreground text-sm">Projetos realizados com excelência</p>
             </div>
-          </div>
+          </Reveal>
 
           {/* Content */}
-          <div>
+          <Reveal delay={120}>
             <span className="text-accent font-medium text-sm tracking-widest uppercase">Sobre Nós</span>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 mb-6">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-6">
               Tradição que se renova a cada projeto
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
@@ -62,7 +63,7 @@ const AboutSection = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
