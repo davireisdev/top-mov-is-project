@@ -6,6 +6,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import Reveal from "@/components/Reveal";
 
 const testimonials = [
   {
@@ -57,9 +58,9 @@ const Footer = () => {
 
       <div className="relative container mx-auto px-6 pt-24 pb-10">
         {/* TESTIMONIALS */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
+        <Reveal className="max-w-3xl mx-auto text-center mb-14">
           <span className="text-accent font-medium text-xs tracking-[0.3em] uppercase">Depoimentos</span>
-          <h2 className="font-display text-3xl md:text-5xl font-normal text-white mt-4 mb-5 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-white mt-4 mb-5 tracking-tight">
             O que nossos clientes dizem
           </h2>
           <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2.5">
@@ -70,7 +71,7 @@ const Footer = () => {
             </div>
             <span className="text-sm text-white/70 font-light">Avaliado com 5 estrelas</span>
           </div>
-        </div>
+        </Reveal>
 
         <Carousel
           opts={{ align: "start", loop: true }}

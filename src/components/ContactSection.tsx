@@ -10,6 +10,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { chatStore, useChatStore } from "@/lib/chatStore";
+import Reveal from "@/components/Reveal";
 
 const WHATSAPP_URL = "https://w.app/tq16tl";
 
@@ -42,22 +43,22 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contato" className="py-32 bg-muted">
+    <section id="contato" className="py-20 md:py-32 bg-muted">
       <div className="container mx-auto px-6 max-w-6xl">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <Reveal className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
           <span className="text-accent font-medium text-xs tracking-[0.3em] uppercase">Contato</span>
-          <h2 className="font-display text-4xl md:text-6xl font-normal text-foreground mt-4 mb-5 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-normal text-foreground mt-4 mb-5 tracking-tight">
             Vamos criar algo <em className="text-accent not-italic">extraordinário</em>
           </h2>
           <p className="text-foreground/70 text-lg font-light leading-relaxed">
             Conte-nos sobre o ambiente dos seus sonhos. Nossa equipe — junto à inteligência artificial — transforma sua visão em projeto.
           </p>
-        </div>
+        </Reveal>
 
         {/* Main content container */}
-        <div className="bg-background/95 rounded-xl border border-border/50 p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_-16px_rgba(0,0,0,0.06)]">
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-20">
+        <Reveal className="bg-background/95 rounded-xl border border-border/50 p-6 sm:p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_-16px_rgba(0,0,0,0.06)]">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
             {/* AI Assistant */}
             <div className="lg:col-span-7 order-2 lg:order-1">
               <div className="flex items-center gap-2 mb-6">
@@ -153,7 +154,7 @@ const ContactSection = () => {
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       {/* Coming Soon Modal */}

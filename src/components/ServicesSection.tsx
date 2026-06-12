@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Armchair, Home, UtensilsCrossed, Bath, Building2, Paintbrush } from "lucide-react";
 import { chatStore } from "@/lib/chatStore";
+import Reveal from "@/components/Reveal";
 
 interface Service {
   icon: React.ComponentType<{ className?: string }>;
@@ -63,25 +64,26 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="servicos" className="py-24 bg-background">
+    <section id="servicos" className="py-20 md:py-24 bg-background">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <Reveal className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <span className="text-accent font-medium text-sm tracking-widest uppercase">Nossos Serviços</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-3 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
             Soluções completas em marcenaria
           </h2>
           <p className="text-muted-foreground text-lg">
             Cada ambiente merece atenção especial. Criamos móveis sob medida para todos os cômodos da sua casa ou empresa.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
+          {services.map((service, i) => (
+            <Reveal key={service.title} delay={i * 80}>
             <button
               key={service.title}
               type="button"
               onClick={() => handleCardClick(service.template)}
-              className="block w-full text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-xl"
+              className="block w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-xl"
             >
               <Card
                 className={`group cursor-pointer border-border/50 hover:border-accent/40 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-500 overflow-hidden relative min-h-[280px] ${service.backgroundImage ? "" : "bg-card"}`}
@@ -99,6 +101,7 @@ const ServicesSection = () => {
               </CardContent>
               </Card>
             </button>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { MessageSquare, Ruler, PenTool, Truck } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   {
@@ -37,23 +38,24 @@ const steps = [
 
 const ProcessSection = () => {
   return (
-    <section className="py-24 bg-foreground">
+    <section className="py-20 md:py-24 bg-foreground">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <Reveal className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <span className="text-accent font-medium text-sm tracking-widest uppercase">Como Funciona</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mt-3 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-foreground mt-3 mb-4">
             Do sonho à realidade em 4 passos
           </h2>
           <p className="text-primary-foreground/60 text-lg">
             Um processo transparente e eficiente para você acompanhar cada etapa.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((item) => (
-            <div
+          {steps.map((item, i) => (
+            <Reveal
               key={item.step}
-              className="group text-center rounded-3xl overflow-hidden bg-primary-foreground/[0.03] border border-primary-foreground/10 hover:border-accent/40 hover:-translate-y-1.5 transition-all duration-500 hover:shadow-[0_20px_40px_-20px_hsl(var(--accent)/0.5)]"
+              delay={i * 100}
+              className="group text-center rounded-3xl overflow-hidden bg-primary-foreground/[0.03] border border-primary-foreground/10 hover:border-accent/40 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_hsl(var(--accent)/0.5)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -74,7 +76,7 @@ const ProcessSection = () => {
                 <h3 className="font-display text-xl font-semibold text-primary-foreground mb-2">{item.title}</h3>
                 <p className="text-primary-foreground/60 text-sm leading-relaxed">{item.description}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
