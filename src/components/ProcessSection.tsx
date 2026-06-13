@@ -1,5 +1,6 @@
 import { MessageSquare, Ruler, PenTool, Truck } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import processManufacturing from "@/assets/process-manufacturing.jpg";
 
 const steps = [
   {
@@ -23,7 +24,7 @@ const steps = [
     step: "03",
     title: "Fabricação",
     description: "Produção com maquinário de ponta e mãos experientes, garantindo perfeição em cada peça.",
-    image: "https://images.unsplash.com/photo-1572297870735-bf6c1d7d0f9e?auto=format&fit=crop&w=800&q=80",
+    image: processManufacturing,
     alt: "Fabricação de móveis em marcenaria com maquinário profissional",
   },
   {
@@ -57,7 +58,7 @@ const ProcessSection = () => {
               delay={i * 100}
               className="group text-center rounded-3xl overflow-hidden bg-primary-foreground/[0.03] border border-primary-foreground/10 hover:border-accent/40 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_hsl(var(--accent)/0.5)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl">
                 <img
                   src={item.image}
                   alt={item.alt}
