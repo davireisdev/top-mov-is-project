@@ -56,14 +56,14 @@ const ProcessSection = () => {
             <Reveal
               key={item.step}
               delay={i * 100}
-              className="group text-center rounded-3xl overflow-hidden bg-primary-foreground/[0.03] border border-primary-foreground/10 hover:border-accent/40 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_hsl(var(--accent)/0.5)]"
+              className="group text-center rounded-3xl overflow-hidden isolate transform-gpu [backface-visibility:hidden] [-webkit-mask-image:-webkit-radial-gradient(white,black)] bg-primary-foreground/[0.03] border border-primary-foreground/10 hover:border-accent/40 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-20px_hsl(var(--accent)/0.5)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl transform-gpu [backface-visibility:hidden]">
                 <img
                   src={item.image}
                   alt={item.alt}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover transform-gpu transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
                 <div className="absolute top-4 left-4 w-12 h-12 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
