@@ -1,4 +1,7 @@
-import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
 const SYSTEM_PROMPT = `Você é o Consultor Virtual da TOP Móveis, especialista em marcenaria premium sob medida.
 
@@ -32,49 +35,80 @@ Deno.serve(async (req) => {
       });
     }
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not configured");
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-        stream: true,
-      }),
-    });
+    const geminiMessages = messages.map((m: { role: string; content: string }) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Limite de requisições atingido. Tente novamente em instantes." }), {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: geminiMessages,
+          generationConfig: { maxOutputTokens: 512 },
+        }),
       }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Créditos esgotados no workspace Lovable AI." }), {
-          status: 402,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "Erro no gateway de IA" }), {
+    );
+
+    if (!response.ok || !response.body) {
+      const err = await response.text();
+      console.error("Gemini API error:", response.status, err);
+      return new Response(JSON.stringify({ error: "Erro ao conectar ao serviço de IA." }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    return new Response(response.body, {
+    // Transforma SSE do Gemini para o formato OpenAI que o cliente espera
+    const stream = new ReadableStream({
+      async start(controller) {
+        const reader = response.body!.getReader();
+        const decoder = new TextDecoder();
+        let buf = "";
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buf += decoder.decode(value, { stream: true });
+            const lines = buf.split("\n");
+            buf = lines.pop() ?? "";
+
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const json = line.slice(6).trim();
+              if (!json) continue;
+
+              try {
+                const parsed = JSON.parse(json);
+                const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) {
+                  const chunk = JSON.stringify({ choices: [{ delta: { content: text } }] });
+                  controller.enqueue(new TextEncoder().encode(`data: ${chunk}\n\n`));
+                }
+              } catch { /* linha incompleta, ignora */ }
+            }
+          }
+        } finally {
+          controller.enqueue(new TextEncoder().encode("data: [DONE]\n\n"));
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(stream, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
   } catch (e) {
     console.error("chat error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown" }), {
+    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Erro desconhecido" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
