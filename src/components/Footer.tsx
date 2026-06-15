@@ -7,6 +7,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Reveal from "@/components/Reveal";
+import { BUSINESS } from "@/lib/constants";
 
 const testimonials = [
   {
@@ -130,7 +131,7 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3 order-2 sm:order-1">
             <a
-              href="https://www.instagram.com/topmoveis.marcenaria/"
+              href={BUSINESS.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -143,7 +144,7 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="https://w.app/tq16tl"
+              href={BUSINESS.social.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
@@ -153,7 +154,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="text-white/40 text-xs tracking-wide font-light order-1 sm:order-2 text-center">
-            © {new Date().getFullYear()} TOP Móveis Marcenaria. Todos os direitos reservados. <span className="text-white/60">Marcenaria de Alta Costura.</span>
+            © {new Date().getFullYear()} {BUSINESS.name}. Todos os direitos reservados. <span className="text-white/60">{BUSINESS.tagline}.</span>
           </p>
         </div>
       </div>

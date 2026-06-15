@@ -10,9 +10,15 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { chatStore, useChatStore } from "@/lib/chatStore";
+import { BUSINESS } from "@/lib/constants";
 import Reveal from "@/components/Reveal";
 
-const WHATSAPP_URL = "https://w.app/tq16tl";
+const contactItems = [
+  { icon: MapPin, label: "Atelier", value: BUSINESS.address.display },
+  { icon: Phone, label: "Telefone", value: BUSINESS.phone },
+  { icon: Mail, label: "E-mail", value: BUSINESS.email },
+  { icon: Clock, label: "Horário", value: BUSINESS.hours.display },
+] as const;
 
 const ContactSection = () => {
   const { consultDraft: draft } = useChatStore();
@@ -21,19 +27,12 @@ const ContactSection = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const startConsult = () => {
-    const text = draft.trim();
-    if (!text) {
+    if (!draft.trim()) {
       alert("Por favor, descreva o ambiente dos seus sonhos antes de iniciar a consultoria.");
       return;
     }
     setModalOpen(true);
   };
-
-  const openDirectWhatsApp = () => {
-    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
-  };
-
-  const consultantWhatsAppUrl = () => WHATSAPP_URL;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -110,15 +109,13 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              {/* WhatsApp integrated */}
+              {/* WhatsApp direct link */}
               <div className="mt-12 pt-8 border-t border-border/40">
                 <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openDirectWhatsApp();
-                  }}
-                  className="group flex items-center justify-between py-2 hover:opacity-80 transition-opacity cursor-pointer"
+                  href={BUSINESS.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between py-2 hover:opacity-80 transition-opacity"
                 >
                   <div className="flex items-center gap-4">
                     <MessageCircle className="h-5 w-5 text-accent" strokeWidth={1.5} />
@@ -134,12 +131,7 @@ const ContactSection = () => {
 
             {/* Contact info */}
             <div className="lg:col-span-5 order-1 lg:order-2 space-y-10 lg:pl-8 lg:border-l lg:border-border/40">
-              {[
-                { icon: MapPin, label: "Atelier", value: "Rua da Marcenaria, 1000\nSão Paulo — SP" },
-                { icon: Phone, label: "Telefone", value: "(11) 99999-9999\n(11) 3333-3333" },
-                { icon: Mail, label: "E-mail", value: "contato@topmoveis.com.br" },
-                { icon: Clock, label: "Horário", value: "Seg a Sex — 8h às 18h\nSáb — 8h às 12h" },
-              ].map((item) => (
+              {contactItems.map((item) => (
                 <div key={item.label} className="flex items-start gap-5">
                   <item.icon className="h-4 w-4 text-accent mt-1 shrink-0" strokeWidth={1.5} />
                   <div>
@@ -172,7 +164,7 @@ const ContactSection = () => {
             </DialogDescription>
           </DialogHeader>
           <a
-            href={consultantWhatsAppUrl()}
+            href={BUSINESS.social.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center justify-center gap-2 w-full bg-foreground text-background hover:bg-foreground/90 rounded-full h-12 px-6 font-light tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_hsl(var(--accent)/0.4)]"

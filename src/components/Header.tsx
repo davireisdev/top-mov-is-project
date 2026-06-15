@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
+import { BUSINESS } from "@/lib/constants";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -105,12 +106,12 @@ const Header = () => {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+5511999999999" className="flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-accent transition-colors">
+            <a href={`tel:${BUSINESS.phoneTel}`} className="flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-accent transition-colors">
               <Phone className="h-4 w-4" />
-              (11) 99999-9999
+              {BUSINESS.phone}
             </a>
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-6">
-              <a href="https://w.app/tq16tl" target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
+              <a href={BUSINESS.social.whatsapp} target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
             </Button>
           </div>
 
@@ -151,7 +152,7 @@ const Header = () => {
                 );
               })}
               <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full mt-2 w-full">
-                <a href="https://w.app/tq16tl" target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
+                <a href={BUSINESS.social.whatsapp} target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
               </Button>
             </nav>
           </div>
