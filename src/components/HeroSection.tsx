@@ -18,7 +18,7 @@ const HeroSection = () => {
         height={1080}
       />
       {/* Elegant dark overlay for legibility */}
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground/80 to-primary/70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground/80 to-accent/70" />
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -45,7 +45,7 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Button asChild size="lg" className="group bg-accent text-accent-foreground hover:bg-accent text-base px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--accent)/0.6)]">
+            <Button asChild size="lg" className="group bg-primary text-primary-foreground hover:bg-primary text-base px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--accent)/0.6)]">
               <a href={BUSINESS.social.whatsapp} target="_blank" rel="noopener noreferrer">
                 Solicitar Orçamento
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -60,22 +60,22 @@ const HeroSection = () => {
           <div className="grid grid-cols-3 gap-8 max-w-md">
             <div>
               <div className="flex items-center gap-1 mb-1">
-                <Clock className="h-4 w-4 text-accent" />
+                <Clock className="h-4 w-4 shrink-0 text-accent" />
                 <span className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">30+</span>
               </div>
               <p className="text-sm text-primary-foreground/60">Anos de experiência</p>
             </div>
             <div>
               <div className="flex items-center gap-1 mb-1">
-                <Star className="h-4 w-4 text-accent" />
-                <span className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">5k+</span>
+                <Star className="h-4 w-4 shrink-0 text-accent" />
+                <span className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">1.000+</span>
               </div>
               <p className="text-sm text-primary-foreground/60">Projetos entregues</p>
             </div>
             <div>
               <div className="flex items-center gap-1 mb-1">
-                <Award className="h-4 w-4 text-accent" />
-                <span className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">100%</span>
+                <Award className="h-4 w-4 shrink-0 text-accent" />
+  <span className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">100%</span>
               </div>
               <p className="text-sm text-primary-foreground/60">Satisfação garantida</p>
             </div>

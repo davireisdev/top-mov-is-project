@@ -26,12 +26,12 @@ const PortfolioSection = () => {
     <section id="portfolio" className="py-20 md:py-24 bg-secondary/30">
       <div className="container mx-auto px-6">
         <Reveal className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-accent font-medium text-sm tracking-widest uppercase">Portfólio</span>
+          <span className="text-primary font-medium text-sm tracking-widest uppercase">Portfólio</span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
             Projetos que inspiram
           </h2>
           <p className="text-muted-foreground text-lg">
-            Conheça alguns dos milhares de projetos que realizamos ao longo de nossa trajetória.
+            Conheça alguns dos mais de mil projetos que realizamos ao longo de nossa trajetória.
           </p>
         </Reveal>
 

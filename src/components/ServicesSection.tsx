@@ -67,7 +67,7 @@ const ServicesSection = () => {
     <section id="servicos" className="py-20 md:py-24 bg-background">
       <div className="container mx-auto px-6">
         <Reveal className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-          <span className="text-accent font-medium text-sm tracking-widest uppercase">Nossos Serviços</span>
+          <span className="text-primary font-medium text-sm tracking-widest uppercase">Nossos Serviços</span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-4">
             Soluções completas em marcenaria
           </h2>
@@ -83,7 +83,7 @@ const ServicesSection = () => {
               key={service.title}
               type="button"
               onClick={() => handleCardClick(service.template)}
-              className="block w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-accent rounded-xl"
+              className="block w-full h-full text-left focus:outline-none focus:ring-2 focus:ring-primary rounded-xl"
             >
               <Card
                 className={`group cursor-pointer border-border/50 hover:border-accent/40 hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-500 overflow-hidden relative min-h-[280px] ${service.backgroundImage ? "" : "bg-card"}`}
@@ -94,7 +94,7 @@ const ServicesSection = () => {
               )}
               <CardContent className="p-8 relative z-10">
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 ${service.backgroundImage ? "bg-white/15 group-hover:bg-accent/80 backdrop-blur-sm" : "bg-accent/10 group-hover:bg-accent/20"}`}>
-                  <service.icon className={`h-7 w-7 ${service.backgroundImage ? "text-white" : "text-accent"}`} />
+                  <service.icon className={`h-7 w-7 ${service.backgroundImage ? "text-white" : "text-primary"}`} />
                 </div>
                 <h3 className={`font-display text-xl font-semibold mb-3 ${service.backgroundImage ? "text-white" : "text-foreground"}`}>{service.title}</h3>
                 <p className={`leading-relaxed ${service.backgroundImage ? "text-white/80" : "text-muted-foreground"}`}>{service.description}</p>

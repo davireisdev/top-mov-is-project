@@ -66,8 +66,8 @@ const ProcessSection = () => {
                   className="absolute inset-0 w-full h-full object-cover transform-gpu transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
-                <div className="absolute top-4 left-4 w-12 h-12 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
-                  <item.icon className="h-6 w-6 text-accent-foreground" />
+                <div className="absolute top-4 left-4 w-12 h-12 bg-primary/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                  <item.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <span className="absolute top-4 right-4 font-display text-3xl font-bold text-primary-foreground/90">
                   {item.step}

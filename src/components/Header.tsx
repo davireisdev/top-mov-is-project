@@ -110,7 +110,7 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               {BUSINESS.phone}
             </a>
-            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-6">
+            <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6">
               <a href={BUSINESS.social.whatsapp} target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
             </Button>
           </div>
@@ -151,7 +151,7 @@ const Header = () => {
                   </a>
                 );
               })}
-              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full mt-2 w-full">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full mt-2 w-full">
                 <a href={BUSINESS.social.whatsapp} target="_blank" rel="noopener noreferrer">Orçamento Grátis</a>
               </Button>
             </nav>
