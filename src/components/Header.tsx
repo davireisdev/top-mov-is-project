@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
 import { BUSINESS } from "@/lib/constants";
+import logo from "@/assets/logo-top-moveis.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,14 +69,14 @@ const Header = () => {
       <div className="container mx-auto px-6">
         <div className={`flex items-center justify-between transition-all duration-500 ${scrolled ? "h-16" : "h-20"}`}>
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-              <span className="text-accent-foreground font-display font-bold text-lg">T</span>
-            </div>
-            <div>
-              <span className="text-primary-foreground font-display font-bold text-lg block leading-none">TOP Móveis</span>
-              <span className="text-primary-foreground/50 text-xs tracking-widest uppercase">Marcenaria</span>
-            </div>
+          <a href="#inicio" className="flex items-center">
+            <img
+              src={logo}
+              alt="TOP Móveis Marcenaria"
+              width={60}
+              height={48}
+              className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
+            />
           </a>
 
           {/* Desktop Nav */}
