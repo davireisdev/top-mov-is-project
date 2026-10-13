@@ -148,7 +148,7 @@ const FloatingChat = () => {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
                   m.role === "user"
-                    ? "bg-accent text-accent-foreground"
+                    ? "bg-primary text-primary-foreground"
                     : "bg-white/5 text-white/90 border border-white/5"
                 }`}
               >
@@ -173,7 +173,7 @@ const FloatingChat = () => {
           <button
             type="submit"
             disabled={loading}
-            className="h-9 w-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center disabled:opacity-50 hover:scale-105 transition"
+            className="h-9 w-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center disabled:opacity-50 hover:scale-105 transition"
             aria-label="Enviar"
           >
             <Send className="h-4 w-4" />

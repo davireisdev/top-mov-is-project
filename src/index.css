@@ -15,7 +15,9 @@
     --popover: 30 10% 96%;
     --popover-foreground: 25 20% 15%;
 
-    --primary: 24 85% 50%;
+    /* Laranja "cobre": ≥4.5:1 com texto branco e sobre as superfícies claras (WCAG AA).
+       O --accent (mais vivo) fica reservado a fundos escuros e a detalhes decorativos. */
+    --primary: 24 90% 36%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 8% 91%;
@@ -32,7 +34,7 @@
 
     --border: 30 10% 88%;
     --input: 30 10% 88%;
-    --ring: 24 85% 50%;
+    --ring: 24 90% 36%;
 
     --radius: 0.5rem;
 

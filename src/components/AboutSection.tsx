@@ -27,21 +27,21 @@ const AboutSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent" />
               <div className="absolute bottom-8 left-8 right-8 text-center">
                 <div className="inline-flex flex-col items-center bg-background/90 backdrop-blur-sm rounded-2xl px-8 py-5">
-                  <span className="font-display text-4xl font-bold text-accent">30+</span>
+                  <span className="font-display text-4xl font-bold text-primary">30+</span>
                   <p className="text-foreground/80 font-medium text-sm tracking-wide">Anos de Tradição</p>
                 </div>
               </div>
             </div>
             {/* Floating card */}
             <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-6 shadow-xl max-w-xs hidden md:block">
-              <p className="font-display text-2xl font-bold text-foreground">5.000+</p>
+              <p className="font-display text-2xl font-bold text-foreground">1.000+</p>
               <p className="text-muted-foreground text-sm">Projetos realizados com excelência</p>
             </div>
           </Reveal>
 
           {/* Content */}
           <Reveal delay={120}>
-            <span className="text-accent font-medium text-sm tracking-widest uppercase">Sobre Nós</span>
+            <span className="text-primary font-medium text-sm tracking-widest uppercase">Sobre Nós</span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-6">
               Tradição que se renova a cada projeto
             </h2>
@@ -58,7 +58,7 @@ const AboutSection = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               {highlights.map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-accent mt-0.5 shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                   <span className="text-foreground text-sm font-medium">{item}</span>
                 </div>
               ))}

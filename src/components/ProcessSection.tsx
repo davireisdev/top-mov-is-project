@@ -1,6 +1,9 @@
 import { MessageSquare, Ruler, PenTool, Truck } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import processManufacturing from "@/assets/process-manufacturing.jpg";
+import processConsultoria from "@/assets/process-consultoria.jpg";
+import processProjeto3d from "@/assets/process-projeto-3d.jpg";
+import processFabricacao from "@/assets/process-fabricacao.jpg";
+import processInstalacao from "@/assets/process-instalacao.jpg";
 
 const steps = [
   {
@@ -8,32 +11,32 @@ const steps = [
     step: "01",
     title: "Consultoria",
     description: "Ouvimos suas necessidades e entendemos o espaço. Visita técnica gratuita para medições.",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80",
-    alt: "Medição e consultoria técnica para móveis planejados sob medida",
+    image: processConsultoria,
+    alt: "Trena aberta sobre a bancada de madeira da marcenaria",
   },
   {
     icon: PenTool,
     step: "02",
     title: "Projeto 3D",
     description: "Criamos o projeto em 3D para você visualizar cada detalhe antes da fabricação.",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
-    alt: "Projeto 3D de marcenaria planejada em tela de computador",
+    image: processProjeto3d,
+    alt: "Projeto 3D de uma cozinha planejada na tela do computador",
   },
   {
     icon: Ruler,
     step: "03",
     title: "Fabricação",
     description: "Produção com maquinário de ponta e mãos experientes, garantindo perfeição em cada peça.",
-    image: processManufacturing,
-    alt: "Fabricação de móveis em marcenaria com maquinário profissional",
+    image: processFabricacao,
+    alt: "Seccionadora cortando uma chapa de MDF na oficina",
   },
   {
     icon: Truck,
     step: "04",
     title: "Entrega & Instalação",
     description: "Entregamos e instalamos com pontualidade e cuidado. Seu ambiente pronto para usar.",
-    image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
-    alt: "Montagem e instalação profissional de móveis planejados",
+    image: processInstalacao,
+    alt: "Parafusadeiras e bits organizados sobre a bancada",
   },
 ];
 
@@ -66,8 +69,10 @@ const ProcessSection = () => {
                   className="absolute inset-0 w-full h-full object-cover transform-gpu transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
-                <div className="absolute top-4 left-4 w-12 h-12 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
-                  <item.icon className="h-6 w-6 text-accent-foreground" />
+                {/* Escurece o topo para o número e o ícone ficarem legíveis sobre fotos claras */}
+                <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-foreground/60 to-transparent" />
+                <div className="absolute top-4 left-4 w-12 h-12 bg-primary/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                  <item.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <span className="absolute top-4 right-4 font-display text-3xl font-bold text-primary-foreground/90">
                   {item.step}

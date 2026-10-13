@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import Reveal from "@/components/Reveal";
 import { BUSINESS } from "@/lib/constants";
+import logo from "@/assets/logo-top-moveis.png";
 
 const testimonials = [
   {
@@ -98,19 +99,7 @@ const Footer = () => {
 
         {/* LOGO + MINI NAV */}
         <div className="text-center mb-14">
-          <div className="inline-flex flex-col items-center">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-11 h-11 rounded-lg border border-white/20 bg-gradient-to-br from-white/10 to-white/0 flex items-center justify-center">
-                <span className="font-display font-bold text-xl bg-gradient-to-br from-white to-zinc-400 bg-clip-text text-transparent">T</span>
-              </div>
-              <div className="text-left">
-                <span className="font-display text-2xl font-normal block leading-none bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent">
-                  TOP Móveis
-                </span>
-                <span className="text-white/40 text-[10px] tracking-[0.35em] uppercase">Marcenaria</span>
-              </div>
-            </div>
-          </div>
+          <img src={logo} alt="TOP Móveis Marcenaria" width={140} height={112} className="mx-auto h-28 w-auto" />
 
           <nav className="mt-8 flex flex-wrap items-center justify-center gap-x-1 gap-y-2 text-sm">
             {navLinks.map((link, i) => (

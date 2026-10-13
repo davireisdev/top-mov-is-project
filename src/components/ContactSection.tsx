@@ -1,43 +1,80 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Sparkles, ImagePlus, ArrowRight, MessageCircle } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { MapPin, Phone, Mail, Clock, ArrowRight, MessageCircle, CircleAlert, type LucideIcon } from "lucide-react";
 import { chatStore, useChatStore } from "@/lib/chatStore";
-import { BUSINESS } from "@/lib/constants";
+import { BUSINESS, whatsappLink } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
 
-const contactItems = [
-  { icon: MapPin, label: "Atelier", value: BUSINESS.address.display },
-  { icon: Phone, label: "Telefone", value: BUSINESS.phone },
-  { icon: Mail, label: "E-mail", value: BUSINESS.email },
+const MAX_LENGTH = 1000;
+
+const rooms = ["Cozinha", "Dormitório", "Sala", "Banheiro", "Escritório", "Outro"];
+
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${BUSINESS.address.street}, ${BUSINESS.address.neighborhood}, ${BUSINESS.address.city} - ${BUSINESS.address.state}`
+)}`;
+
+interface ContactItem {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+}
+
+const contactItems: ContactItem[] = [
+  { icon: MapPin, label: "Atelier", value: BUSINESS.address.display, href: mapsUrl, external: true },
+  { icon: Phone, label: "Telefone", value: BUSINESS.phone, href: `tel:${BUSINESS.phoneTel}` },
+  { icon: Mail, label: "E-mail", value: BUSINESS.email, href: `mailto:${BUSINESS.email}` },
   { icon: Clock, label: "Horário", value: BUSINESS.hours.display },
-] as const;
+];
+
+// Régua de marceneiro: marcas finas a cada 8px, marca de destaque a cada 40px.
+const rulerStyle: React.CSSProperties = {
+  backgroundImage:
+    "linear-gradient(to right, hsl(var(--primary) / 0.75) 1px, transparent 1px), linear-gradient(to right, hsl(var(--foreground) / 0.3) 1px, transparent 1px)",
+  backgroundSize: "40px 14px, 8px 7px",
+  backgroundRepeat: "repeat-x",
+  backgroundPosition: "left bottom",
+};
 
 const ContactSection = () => {
   const { consultDraft: draft } = useChatStore();
   const setDraft = (text: string) => chatStore.setConsultDraft(text);
-  const [modalOpen, setModalOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [room, setRoom] = useState<string | null>(null);
+  const [showError, setShowError] = useState(false);
 
-  const startConsult = () => {
-    if (!draft.trim()) {
-      alert("Por favor, descreva o ambiente dos seus sonhos antes de iniciar a consultoria.");
-      return;
+  const message = draft.trim();
+  // O que o cliente escreveu (e o ambiente escolhido) segue pronto na conversa do WhatsApp.
+  const consultUrl = whatsappLink(
+    message
+      ? [
+          "Olá! Vim pelo site da TOP Móveis e gostaria de um orçamento.",
+          room ? `Ambiente: ${room}` : null,
+          message,
+        ]
+          .filter(Boolean)
+          .join("\n\n")
+      : undefined
+  );
+
+  // Sem texto, não abre o WhatsApp: mostra o aviso ao lado do campo.
+  const handleSendClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!message) {
+      e.preventDefault();
+      setShowError(true);
     }
-    setModalOpen(true);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setDraft(`${draft ? draft + "\n\n" : ""}Anexei uma imagem de inspiração: ${file.name}`);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      if (!message) {
+        setShowError(true);
+        return;
+      }
+      window.open(consultUrl, "_blank", "noopener,noreferrer");
     }
   };
 
@@ -46,134 +83,165 @@ const ContactSection = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         {/* Header */}
         <Reveal className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
-          <span className="text-accent font-medium text-xs tracking-[0.3em] uppercase">Contato</span>
+          <span className="text-primary font-medium text-xs tracking-[0.3em] uppercase">Contato</span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-normal text-foreground mt-4 mb-5 tracking-tight">
-            Vamos criar algo <em className="text-accent not-italic">extraordinário</em>
+            Vamos criar algo <em className="text-primary not-italic">extraordinário</em>
           </h2>
           <p className="text-foreground/70 text-lg font-light leading-relaxed">
-            Conte-nos sobre o ambiente dos seus sonhos. Nossa equipe — junto à inteligência artificial — transforma sua visão em projeto.
+            Conte-nos sobre o ambiente dos seus sonhos. Sua mensagem chega direto ao nosso WhatsApp e nossa equipe transforma sua visão em projeto.
           </p>
         </Reveal>
 
-        {/* Main content container */}
-        <Reveal className="bg-background/95 rounded-xl border border-border/50 p-6 sm:p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_-16px_rgba(0,0,0,0.06)]">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-            {/* AI Assistant */}
-            <div className="lg:col-span-7 order-2 lg:order-1">
-              <div className="flex items-center gap-2 mb-6">
-                <Sparkles className="h-4 w-4 text-accent" />
-                <span className="text-xs tracking-[0.25em] uppercase text-foreground/70 font-medium">
-                  Assistente de Projetos IA
-                </span>
-              </div>
+        {/* Um único painel: bancada (formulário) + atelier (contatos) */}
+        <Reveal className="grid overflow-hidden rounded-2xl bg-background shadow-[0_32px_64px_-32px_hsl(var(--foreground)/0.45)] lg:grid-cols-12">
+          {/* Bancada */}
+          <div className="bg-foreground p-6 text-primary-foreground sm:p-10 lg:col-span-7 lg:p-12">
+            <h3 className="font-display text-2xl font-semibold text-balance sm:text-3xl">Conte seu projeto</h3>
+            <p className="mt-3 max-w-md leading-relaxed text-primary-foreground/70">
+              Cômodo, medidas e estilo já ajudam muito. Sua mensagem segue pronta para o nosso WhatsApp.
+            </p>
 
+            <div role="group" aria-labelledby="ambiente-label" className="mt-8">
+              <p id="ambiente-label" className="mb-3 text-sm text-primary-foreground/70">
+                Qual ambiente?
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {rooms.map((r) => {
+                  const active = room === r;
+                  return (
+                    <button
+                      key={r}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => setRoom(active ? null : r)}
+                      className={cn(
+                        "rounded-full border px-3.5 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-foreground",
+                        active
+                          ? "border-primary-foreground bg-primary-foreground font-medium text-foreground"
+                          : "border-primary-foreground/30 text-primary-foreground/80 hover:border-primary-foreground/70 hover:text-primary-foreground"
+                      )}
+                    >
+                      {r}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Folha do pedido, com régua no topo */}
+            <div
+              className={cn(
+                "mt-6 overflow-hidden rounded-xl bg-background transition-shadow",
+                showError
+                  ? "ring-2 ring-red-300 ring-offset-2 ring-offset-foreground"
+                  : "focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2 focus-within:ring-offset-foreground"
+              )}
+            >
+              <div aria-hidden className="h-4 border-b border-border bg-secondary" style={rulerStyle} />
               <div className="relative">
                 <Textarea
                   value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
-                      e.preventDefault();
-                      startConsult();
-                    }
+                  maxLength={MAX_LENGTH}
+                  aria-label="Descreva o seu projeto"
+                  aria-invalid={showError}
+                  aria-describedby={showError ? "consulta-erro" : undefined}
+                  onChange={(e) => {
+                    setDraft(e.target.value);
+                    if (showError) setShowError(false);
                   }}
-                  placeholder="Descreva o ambiente dos seus sonhos ou envie uma foto de inspiração..."
-                  className="min-h-[220px] bg-popover rounded-xl border border-border/60 px-5 py-5 text-base font-light leading-relaxed placeholder:text-muted-foreground/60 focus-visible:ring-1 focus-visible:ring-accent/20 focus-visible:border-accent resize-none transition-all duration-300"
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ex.: cozinha de 12m², estilo moderno, com ilha central e bastante gaveta..."
+                  className="min-h-[200px] resize-none rounded-none border-0 bg-transparent px-5 pb-10 pt-4 text-base leading-relaxed text-foreground caret-primary selection:bg-primary/20 placeholder:text-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
-
-                <div className="flex items-center justify-between mt-6">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors"
-                  >
-                    <ImagePlus className="h-4 w-4" />
-                    <span className="font-light">Anexar inspiração</span>
-                  </button>
-
-                  <Button
-                    size="lg"
-                    onClick={startConsult}
-                    className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-7 h-12 font-light tracking-wide group transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_hsl(var(--accent)/0.4)]"
-                  >
-                    Iniciar Consultoria Digital
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* WhatsApp direct link */}
-              <div className="mt-12 pt-8 border-t border-border/40">
-                <a
-                  href={BUSINESS.social.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between py-2 hover:opacity-80 transition-opacity"
+                <span
+                  aria-hidden
+                  className={cn(
+                    "pointer-events-none absolute bottom-3 right-4 text-xs tabular-nums",
+                    draft.length >= MAX_LENGTH - 100 ? "font-medium text-foreground" : "text-foreground/70"
+                  )}
                 >
-                  <div className="flex items-center gap-4">
-                    <MessageCircle className="h-5 w-5 text-accent" strokeWidth={1.5} />
-                    <div>
-                      <p className="font-display text-lg text-foreground">Prefere conversar agora?</p>
-                      <p className="text-sm text-foreground/70 font-light">Atendimento direto pelo WhatsApp</p>
-                    </div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-foreground/70 transition-transform group-hover:translate-x-1" />
-                </a>
+                  {draft.length}/{MAX_LENGTH}
+                </span>
               </div>
             </div>
 
-            {/* Contact info */}
-            <div className="lg:col-span-5 order-1 lg:order-2 space-y-10 lg:pl-8 lg:border-l lg:border-border/40">
+            {showError && (
+              <p id="consulta-erro" role="alert" className="mt-3 flex items-center gap-2 text-sm text-red-300">
+                <CircleAlert className="h-4 w-4 shrink-0" aria-hidden />
+                Conte um pouco sobre o seu projeto antes de enviar.
+              </p>
+            )}
+
+            <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-xs text-sm leading-relaxed text-primary-foreground/70">
+                Tem fotos de inspiração? Envie direto na conversa do WhatsApp.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="group h-12 w-full rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90 hover:shadow-[0_12px_24px_-12px_hsl(var(--accent)/0.9)] focus-visible:ring-accent focus-visible:ring-offset-foreground sm:w-auto"
+              >
+                <a href={consultUrl} target="_blank" rel="noopener noreferrer" onClick={handleSendClick}>
+                  Enviar pelo WhatsApp
+                  <ArrowRight className="h-4 w-4 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Atelier */}
+          <div className="bg-background p-6 sm:p-10 lg:col-span-5 lg:p-12">
+            <h3 className="font-display text-2xl font-semibold text-foreground text-balance sm:text-3xl">
+              Onde nos encontrar
+            </h3>
+
+            <dl className="mt-8 space-y-6">
               {contactItems.map((item) => (
-                <div key={item.label} className="flex items-start gap-5">
-                  <item.icon className="h-4 w-4 text-accent mt-1 shrink-0" strokeWidth={1.5} />
+                <div key={item.label} className="flex items-start gap-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <item.icon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden />
+                  </span>
                   <div>
-                    <p className="text-[10px] tracking-[0.25em] uppercase text-foreground/60 font-medium mb-1.5">
-                      {item.label}
-                    </p>
-                    <p className="text-foreground font-light whitespace-pre-line leading-relaxed">
-                      {item.value}
-                    </p>
+                    <dt className="text-xs font-medium uppercase tracking-widest text-foreground/70">{item.label}</dt>
+                    <dd className="mt-1 whitespace-pre-line leading-relaxed text-foreground">
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="underline-offset-4 transition-colors hover:text-primary hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
+                    </dd>
                   </div>
                 </div>
               ))}
-            </div>
+            </dl>
+
+            <a
+              href={BUSINESS.social.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-10 flex items-center justify-between gap-4 rounded-xl border border-border px-5 py-4 transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <span className="flex items-center gap-4">
+                <MessageCircle className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} aria-hidden />
+                <span>
+                  <span className="block font-display text-lg text-foreground">Prefere conversar agora?</span>
+                  <span className="block text-sm text-foreground/70">Atendimento direto pelo WhatsApp</span>
+                </span>
+              </span>
+              <ArrowRight
+                className="h-4 w-4 shrink-0 text-foreground/70 motion-safe:transition-transform motion-safe:group-hover:translate-x-1"
+                aria-hidden
+              />
+            </a>
           </div>
         </Reveal>
       </div>
-
-      {/* Coming Soon Modal */}
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="sm:max-w-md bg-background rounded-2xl border border-border/60">
-          <DialogHeader>
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
-              <Sparkles className="h-6 w-6 text-accent" />
-            </div>
-            <DialogTitle className="font-display text-2xl text-center font-normal">
-              Consultoria Digital com IA <span className="text-accent">(Em Breve)</span>
-            </DialogTitle>
-            <DialogDescription className="text-center text-base font-light leading-relaxed pt-2">
-              Estamos calibrando nossa inteligência artificial para criar projetos 3D realistas em segundos! Essa função estará disponível muito em breve.
-            </DialogDescription>
-          </DialogHeader>
-          <a
-            href={BUSINESS.social.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center justify-center gap-2 w-full bg-foreground text-background hover:bg-foreground/90 rounded-full h-12 px-6 font-light tracking-wide transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_hsl(var(--accent)/0.4)]"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Falar com Consultor no WhatsApp
-          </a>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
